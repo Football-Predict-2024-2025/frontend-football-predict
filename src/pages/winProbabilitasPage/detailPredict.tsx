@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { clubList } from "../../utils/dataSample";
 import { FaX } from "react-icons/fa6";
-
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+ChartJS.register(ArcElement, Tooltip, Legend);
 interface Club {
   id: number;
   name: string;
@@ -10,21 +12,34 @@ interface Club {
 
 export const DetailPredictPage: React.FC = () => {
   const [selected2Club, setSelected2Club] = useState<Club[]>([]);
+  const [resultPredict, setResultPredict] = useState(false);
 
-  // Fungsi untuk menambah atau menghapus klub dari list yang dipilih
   const toggleClubSelection = (club: Club) => {
+    setResultPredict(false);
     if (selected2Club.find((c) => c.id === club.id)) {
-      // Jika klub sudah dipilih, hapus dari list
       setSelected2Club(selected2Club.filter((c) => c.id !== club.id));
     } else if (selected2Club.length < 2) {
-      // Jika belum mencapai 2 klub, tambahkan klub ke list
       setSelected2Club([...selected2Club, club]);
     }
   };
 
-  // Fungsi untuk menghapus klub yang dipilih
   const removeSelectedClub = (clubId: number) => {
     setSelected2Club(selected2Club.filter((club) => club.id !== clubId));
+  };
+
+  const prosesPredict = () => {
+    setResultPredict(true);
+  };
+
+  const data = {
+    labels: ["Team 1", "Team 2"],
+    datasets: [
+      {
+        data: [12, 29],
+        backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
+        borderWidth: 1,
+      },
+    ],
   };
 
   return (
@@ -67,11 +82,32 @@ export const DetailPredictPage: React.FC = () => {
             ))}
             <div className="col-md-12">
               <button
-                className="btn btn-success w-100"
+                className="btn btn-success w-100 mb-4"
                 disabled={selected2Club.length !== 2}
+                onClick={() => prosesPredict()}
               >
                 Prediksi
               </button>
+              {resultPredict ? (
+                <div className="col-md-12">
+                  <div className="h4 text-center mb-4">Win Probability</div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="h5">{selected2Club[0].name}</div>
+                    </div>
+                    <div className="col-md-5">
+                      <div className="d-flex">
+                        <Pie data={data} />
+                      </div>
+                    </div>
+                    <div className="col">
+                      <div className="h5">{selected2Club[1].name}</div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
