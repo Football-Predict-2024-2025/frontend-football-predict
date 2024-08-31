@@ -32,10 +32,10 @@ export const SideBar: React.FC<SideBarAdminProps> = ({ children }) => {
         >
           <Menu>
             <div className="p-3 pb-4 text-center text-light fs-5 fw-bold">
-              2024/25 Football Season Prediction
+              2024/2025 Football Season Prediction
             </div>
             <MenuItem
-              onClick={() => navigate("/dasbord")}
+              onClick={() => navigate("/")}
               className="text-light"
               icon={<FaGaugeHigh />}
             >
@@ -43,7 +43,7 @@ export const SideBar: React.FC<SideBarAdminProps> = ({ children }) => {
               Team Performances
             </MenuItem>
             <MenuItem
-              onClick={() => navigate("/dasbord")}
+              onClick={() => navigate("/win-robabilitas")}
               className="text-light"
               icon={<FaGaugeHigh />}
             >
@@ -51,7 +51,7 @@ export const SideBar: React.FC<SideBarAdminProps> = ({ children }) => {
               Win Probabilitas
             </MenuItem>
             <MenuItem
-              onClick={() => navigate("/dasbord")}
+              onClick={() => navigate("/credits")}
               className="text-light"
               icon={<FaGaugeHigh />}
             >
