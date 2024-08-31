@@ -139,3 +139,41 @@ export const creditsList = [
     Linkedin: "@Wahyu",
   },
 ]
+
+export const clubList = [
+  {
+    id: 1,
+    img: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    name: "ATALANTA",
+  },
+  {
+    id: 2,
+    img: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    name: "JUVENTUS",
+  },
+  {
+    id: 3,
+    img: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    name: "VERONA",
+  },
+  {
+    id: 4,
+    img: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    name: "MILAN",
+  },
+  {
+    id: 5,
+    img: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    name: "GENOA",
+  },
+  {
+    id: 6,
+    img: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    name: "INTER",
+  },
+  {
+    id: 7,
+    img: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    name: "TORINO",
+  },
+]

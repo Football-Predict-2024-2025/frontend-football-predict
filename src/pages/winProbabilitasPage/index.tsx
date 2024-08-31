@@ -1,13 +1,19 @@
 import React from "react";
 import { LigaLeagueList } from "../../utils/dataSample";
+import { useNavigate } from "react-router-dom";
 
 export const WinProbabilitasPage: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="h2 text-center mb-5">Select League</div>
       <div className="row g-4">
         {LigaLeagueList.map((data, index) => (
-          <div className="col-md-12">
+          <div
+            className="col-md-12"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/detail-predict")}
+          >
             <div className="card shadow border-0" key={index}>
               <div className="card-body">
                 <div className="row">
