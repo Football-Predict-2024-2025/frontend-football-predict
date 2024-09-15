@@ -6,7 +6,7 @@ export const HomePage: React.FC = () => {
   return (
     <div>
       <>
-        <div className="h2 mb-5">
+        <div className="h2 mb-5" style={{ fontSize: "28px" }}>
           Select Your <span className="mtext-primary">League</span>
         </div>
         <div className="row g-4">
