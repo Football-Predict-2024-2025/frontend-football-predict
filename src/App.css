@@ -1,0 +1,12 @@
+:root {
+    --primary-color: #01C67A;
+    --primary-color-hover: #018F59;
+}
+
+body{
+ background-color: #ffffff;
+}
+
+.mtext-primary {
+    color: var(--primary-color) !important; 
+}

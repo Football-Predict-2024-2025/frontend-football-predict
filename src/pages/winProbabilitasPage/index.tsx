@@ -1,14 +1,33 @@
-import React from "react";
-import { LigaLeagueList } from "../../utils/dataSample";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LeagueService from "../../services/league";
+import {
+  MyLeague,
+} from "../../interfaces/league.interface";
 
 export const WinProbabilitasPage: React.FC = () => {
+  const [listLeague, setListLeague] = useState<MyLeague[]>([]);
   const navigate = useNavigate();
+  const leagueService = LeagueService();
+
+  useEffect(() => {
+    fetchLeague();
+  }, []);
+
+  const fetchLeague = async () => {
+    try {
+      const response: MyLeague[] = await leagueService.getAllLeague();
+      setListLeague(response); 
+    } catch (error) {
+      console.error("Error fetching leagues:", error);
+    }
+  };
+
   return (
     <>
       <div className="h2 text-center mb-5">Select League</div>
       <div className="row g-4">
-        {LigaLeagueList.map((data, index) => (
+        {listLeague.map((data, index) => (
           <div
             className="col-md-12"
             style={{ cursor: "pointer" }}
@@ -19,13 +38,13 @@ export const WinProbabilitasPage: React.FC = () => {
                 <div className="row">
                   <div className="col-2">
                     <img
-                      src="https://s3-alpha-sig.figma.com/img/7871/b7d3/8c2552ae9f39d3e4bd337504ac864855?Expires=1725840000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TFo2mtKt-2cSfYUNKHwgJfr9J1cbp30jGo7MpXuDtMCr1ZA4PFxpP3EkNmLrFVFSTR4maIrkaevHsH3uhF-E5oVsNY14VMDMmhCNmEtlZ-c8H00bc0qS0-YtzrhgpOI9uJyD~aqDsC0rYr2BpaWchUHqcfsEWVHew0CwfH3VnAkvf47Ukv5Lwi01gbN7HCTntX7t8BHOuFc5nGeuQWh7csFVkMJM2Vt7-avRK2Spn2mAxtqUe3~NfeKc6LCuvgINKBEPMcnA~0NqleF~yZEt27Wi02qlxuW~y6F8860M3zfecGkbJrM4JfJkl2esrBGA1OYQfY8kVTJoIDgpMWsqSQ__"
+                      src={data.league_icon}
                       width={150}
                       alt=""
                     />
                   </div>
                   <div className="col">
-                    <div className="h4">{data.ligaName}</div>
+                    <div className="h4">{data.league_name}</div>
                   </div>
                 </div>
               </div>
