@@ -31,7 +31,7 @@ export const WinProbabilitasPage: React.FC = () => {
           <div
             className="col-md-12"
             style={{ cursor: "pointer" }}
-            onClick={() => navigate("/detail-predict")}
+            onClick={() => navigate(`/detail-predict/${data.league_id}`)}
           >
             <div className="card shadow border-0" key={index}>
               <div className="card-body">

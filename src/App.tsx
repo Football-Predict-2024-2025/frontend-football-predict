@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/win-robabilitas" element={<WinProbabilitasPage />} />
-        <Route path="/detail-predict" element={<DetailPredictPage />} />
+        <Route path="/detail-predict/:id" element={<DetailPredictPage />} />
         <Route path="/credits" element={<CreditsPage />} />
       </Routes>
     </SideBar>

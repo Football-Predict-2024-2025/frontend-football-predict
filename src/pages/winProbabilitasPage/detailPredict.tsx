@@ -4,10 +4,12 @@ import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import LeagueService from "../../services/league";
 import { MyClub, ResponsePredict } from "../../interfaces/club.interface";
+import { useParams } from "react-router-dom";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const DetailPredictPage: React.FC = () => {
+  const { id } = useParams();
   const [selected2Club, setSelected2Club] = useState<MyClub[]>([]);
   const [resultPredict, setResultPredict] = useState(false);
   const [listClub, setListClub] = useState<MyClub[]>([]);
@@ -23,11 +25,13 @@ export const DetailPredictPage: React.FC = () => {
 
   // Fetch club data based on league ID
   const fetchClub = async () => {
-    try {
-      const response: MyClub[] = await clubService.getClubsByLeague(1); // Example with league ID 1
-      setListClub(response);
-    } catch (error) {
-      console.error("Error fetching clubs:", error);
+    if (id) {
+      try {
+        const response: MyClub[] = await clubService.getClubsByLeague(parseInt(id)); // Convert id to a number
+        setListClub(response);
+      } catch (error) {
+        console.error("Error fetching clubs:", error);
+      }
     }
   };
 
@@ -60,7 +64,9 @@ export const DetailPredictPage: React.FC = () => {
   };
 
   const data = {
-    labels: ["Team 1", "Team 2"],
+    labels: valueResultPredict.length === 2 
+    ? [valueResultPredict[0].Club, valueResultPredict[1].Club] 
+    : ["Team 1", "Team 2"],
     datasets: [
       {
         data:
