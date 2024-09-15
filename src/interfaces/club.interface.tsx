@@ -42,3 +42,9 @@ export interface ResponsePredict {
     Club: string,
     Win_Probability: string
 }
+
+export interface RequestClubPredictionData {
+  ID_Club1: number;
+  ID_Club2: number;
+  ID_Liga: number;
+}

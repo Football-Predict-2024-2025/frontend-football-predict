@@ -46,7 +46,12 @@ export const DetailPredictPage: React.FC = () => {
 
   const prosesPredict = async () => {
     try {
-      const response: ResponsePredict[] = await clubService.predictClub();
+      const data = {
+        ID_Liga: selected2Club[0].ID_Liga,
+        ID_Club1: selected2Club[0].ID_Club,
+        ID_Club2: selected2Club[1].ID_Club,
+      }
+      const response: ResponsePredict[] = await clubService.predictClub(data);
       setValueResultPredict(response);
     } catch (error) {
       console.error("Error fetching clubs:", error);
@@ -58,10 +63,17 @@ export const DetailPredictPage: React.FC = () => {
     labels: ["Team 1", "Team 2"],
     datasets: [
       {
-        data: valueResultPredict.length === 2 ? [
-          parseInt(valueResultPredict[0].Win_Probability.replace("%", "")) || 0,
-          parseInt(valueResultPredict[1].Win_Probability.replace("%", "")) || 0,
-        ] : [0, 0], // Parse and assign win probabilities from the prediction result
+        data:
+          valueResultPredict.length === 2
+            ? [
+                parseInt(
+                  valueResultPredict[0].Win_Probability.replace("%", "")
+                ) || 0,
+                parseInt(
+                  valueResultPredict[1].Win_Probability.replace("%", "")
+                ) || 0,
+              ]
+            : [0, 0],
         backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
         borderWidth: 1,
       },
