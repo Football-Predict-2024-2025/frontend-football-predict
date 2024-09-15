@@ -4,7 +4,7 @@ import { FaBars, FaGaugeHigh } from "react-icons/fa6";
 // import AuthService from "../../services/authService";
 import { Sidebar, Menu, MenuItem, menuClasses } from "react-pro-sidebar";
 import "bootstrap/dist/css/bootstrap.css";
-import imgside from "./../../assets/image/myassets/HeaderSideMenu.png"
+import imgside from "./../../assets/image/myassets/HeaderSideMenu.png";
 
 interface SideBarAdminProps {
   children: ReactNode;
@@ -40,13 +40,13 @@ export const SideBar: React.FC<SideBarAdminProps> = ({ children }) => {
               className="text-light"
               icon={<FaGaugeHigh />}
               rootStyles={{
-            ["." + menuClasses.button]: {
-              "&:hover": {
-                color: "black",
-                backgroundColor: "#01C67A",
-              },
-            },
-          }}
+                ["." + menuClasses.button]: {
+                  "&:hover": {
+                    color: "black",
+                    backgroundColor: "#01C67A",
+                  },
+                },
+              }}
             >
               {" "}
               Team Performances
@@ -56,13 +56,13 @@ export const SideBar: React.FC<SideBarAdminProps> = ({ children }) => {
               className="text-light"
               icon={<FaGaugeHigh />}
               rootStyles={{
-            ["." + menuClasses.button]: {
-              "&:hover": {
-                color: "black",
-                backgroundColor: "#01C67A",
-              },
-            },
-          }}
+                ["." + menuClasses.button]: {
+                  "&:hover": {
+                    color: "black",
+                    backgroundColor: "#01C67A",
+                  },
+                },
+              }}
             >
               {" "}
               Win Probabilitas
@@ -72,13 +72,13 @@ export const SideBar: React.FC<SideBarAdminProps> = ({ children }) => {
               className="text-light"
               icon={<FaGaugeHigh />}
               rootStyles={{
-            ["." + menuClasses.button]: {
-              "&:hover": {
-                color: "black",
-                backgroundColor: "#01C67A",
-              },
-            },
-          }}
+                ["." + menuClasses.button]: {
+                  "&:hover": {
+                    color: "black",
+                    backgroundColor: "#01C67A",
+                  },
+                },
+              }}
             >
               {" "}
               Creadit
@@ -86,7 +86,10 @@ export const SideBar: React.FC<SideBarAdminProps> = ({ children }) => {
           </Menu>
         </Sidebar>
         <main style={{ width: "100%" }}>
-          <nav className="navbar py-3 pe-4 bg-body-tertiary">
+          <nav
+            className="navbar py-3 pe-4"
+            style={{ backgroundColor: "#F5F5F5" }}
+          >
             <div className="container-fluid">
               <div className="navbar-brand">
                 <button
@@ -99,10 +102,11 @@ export const SideBar: React.FC<SideBarAdminProps> = ({ children }) => {
               </div>
             </div>
           </nav>
-          <div className="p-3">
-            <div className="p-4" style={{ minHeight: "80vh", backgroundColor: "#ffffff" }}>
-              {children}
-            </div>
+          <div
+            className="p-4"
+            style={{ minHeight: "80vh", backgroundColor: "#F5F5F5" }}
+          >
+            {children}
           </div>
         </main>
       </div>

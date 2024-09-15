@@ -1,10 +1,11 @@
 import axios, { AxiosResponse } from "axios";
 import { MyLeague } from "../interfaces/league.interface";
-import { MyClub } from "../interfaces/club.interface";
+import { MyClub, ResponsePredict } from "../interfaces/club.interface";
 
 interface LeagueService {
   getAllLeague: () => Promise<MyLeague[]>;
   getClubsByLeague: (leagueId: number) => Promise<MyClub[]>;
+  predictClub: () => Promise<ResponsePredict[]>;
 }
 
 const LeagueService = (): LeagueService => {
@@ -36,9 +37,23 @@ const LeagueService = (): LeagueService => {
     }
   };
 
+  // Fungsi untuk mengambil klub berdasarkan ID liga
+  const predictClub = async (): Promise<ResponsePredict[]> => {
+    try {
+      const response: AxiosResponse<ResponsePredict[]> = await axios.get(
+        `${apiUrl}/api/club/predict`
+      );
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching clubs for league ID`, error);
+      throw error;
+    }
+  };
+
   return {
     getAllLeague,
     getClubsByLeague,
+    predictClub,
   };
 };
 

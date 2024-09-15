@@ -1,12 +1,27 @@
 :root {
-    --primary-color: #01C67A;
-    --primary-color-hover: #018F59;
+  --primary-color: #01c67a;
+  --primary-color-hover: #018f59;
+
+  --neutral-10: #FFFFFF;
+  --neutral-20: #F5F5F5;
+  --neutral-30: #EDEDED;
+  --neutral-40: #E0E0E0;
+  --neutral-50: #C2C2C2;
+  --neutral-60: #9E9E9E;
+  --neutral-70: #757575;
+  --neutral-80: #616161; 
+  --neutral-90: #404040;
+  --neutral-100: #0A0A0A;
+  --dark-blue: #080F3A;
+  --light-blue: #2676FD;
+  --green: #01C67A;
+  --red: #F74403;
 }
 
-body{
- background-color: #ffffff;
+body {
+  background-color: #F5F5F5;
 }
 
 .mtext-primary {
-    color: var(--primary-color) !important; 
+  color: var(--primary-color) !important;
 }

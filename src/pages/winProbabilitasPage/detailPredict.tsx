@@ -3,7 +3,7 @@ import { FaX } from "react-icons/fa6";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import LeagueService from "../../services/league";
-import { MyClub } from "../../interfaces/club.interface";
+import { MyClub, ResponsePredict } from "../../interfaces/club.interface";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -11,6 +11,9 @@ export const DetailPredictPage: React.FC = () => {
   const [selected2Club, setSelected2Club] = useState<MyClub[]>([]);
   const [resultPredict, setResultPredict] = useState(false);
   const [listClub, setListClub] = useState<MyClub[]>([]);
+  const [valueResultPredict, setValueResultPredict] = useState<
+    ResponsePredict[]
+  >([]);
 
   const clubService = LeagueService();
 
@@ -30,18 +33,24 @@ export const DetailPredictPage: React.FC = () => {
 
   const toggleClubSelection = (club: MyClub) => {
     setResultPredict(false);
-    if (selected2Club.find((c) => c.club_name === club.club_name)) {
-      setSelected2Club(selected2Club.filter((c) => c.club_name !== club.club_name));
+    if (selected2Club.find((c) => c.Club === club.Club)) {
+      setSelected2Club(selected2Club.filter((c) => c.Club !== club.Club));
     } else if (selected2Club.length < 2) {
       setSelected2Club([...selected2Club, club]);
     }
   };
 
   const removeSelectedClub = (clubId: number) => {
-    setSelected2Club(selected2Club.filter((club) => club.position !== clubId));
+    setSelected2Club(selected2Club.filter((club) => club.POS !== clubId));
   };
 
-  const prosesPredict = () => {
+  const prosesPredict = async () => {
+    try {
+      const response: ResponsePredict[] = await clubService.predictClub();
+      setValueResultPredict(response);
+    } catch (error) {
+      console.error("Error fetching clubs:", error);
+    }
     setResultPredict(true);
   };
 
@@ -49,7 +58,10 @@ export const DetailPredictPage: React.FC = () => {
     labels: ["Team 1", "Team 2"],
     datasets: [
       {
-        data: [12, 29], // Example data
+        data: valueResultPredict.length === 2 ? [
+          parseInt(valueResultPredict[0].Win_Probability.replace("%", "")) || 0,
+          parseInt(valueResultPredict[1].Win_Probability.replace("%", "")) || 0,
+        ] : [0, 0], // Parse and assign win probabilities from the prediction result
         backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
         borderWidth: 1,
       },
@@ -70,7 +82,7 @@ export const DetailPredictPage: React.FC = () => {
                         <div className="d-flex">
                           <button
                             className="btn btn-sm btn-danger px-2 pt-1 me-3"
-                            onClick={() => removeSelectedClub(club.position)}
+                            onClick={() => removeSelectedClub(club.POS)}
                           >
                             <FaX />
                           </button>
@@ -78,13 +90,13 @@ export const DetailPredictPage: React.FC = () => {
                         </div>
                       </div>
                       <div className="col-md-4 text-end m-auto">
-                        <div className="h6">{club.club_name}</div>
+                        <div className="h6">{club.Club}</div>
                       </div>
                       <div className="col-md-2">
                         <img
                           src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                           width="50"
-                          alt={club.club_name}
+                          alt={club.Club}
                         />
                       </div>
                     </div>
@@ -105,13 +117,17 @@ export const DetailPredictPage: React.FC = () => {
                   <div className="h4 text-center mb-4">Win Probability</div>
                   <div className="row">
                     <div className="col">
-                      <div className="h5">{selected2Club[0].club_name}</div>
+                      <div className="h5">
+                        {valueResultPredict && valueResultPredict[0].Club}
+                      </div>
                     </div>
                     <div className="col-md-5">
                       <Pie data={data} />
                     </div>
                     <div className="col">
-                      <div className="h5">{selected2Club[1].club_name}</div>
+                      <div className="h5">
+                        {valueResultPredict && valueResultPredict[1].Club}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -129,7 +145,7 @@ export const DetailPredictPage: React.FC = () => {
               >
                 <div
                   className={`card shadow-sm border-0 text-center ${
-                    selected2Club.find((c) => c.club_name === club.club_name)
+                    selected2Club.find((c) => c.Club === club.Club)
                       ? "bg-success text-white"
                       : ""
                   }`}
@@ -140,11 +156,11 @@ export const DetailPredictPage: React.FC = () => {
                       <img
                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                         width="50"
-                        alt={club.club_name}
+                        alt={club.Club}
                       />
                     </div>
                     <div className="h6 mt-2" style={{ fontSize: "0.8em" }}>
-                      {club.club_name}
+                      {club.Club}
                     </div>
                   </div>
                 </div>
